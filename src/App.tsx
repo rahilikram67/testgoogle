@@ -1,22 +1,19 @@
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"
-import { web } from "./google_secret.json"
-function App() {
+import { useState } from "react"
 
+function App() {
+  const [url, setUrl] = useState("https://www.vpngate.net/en")
+  const [temp,setTemp] = useState("")
+  const getUrl = () => {
+     setUrl(temp)
+
+  }
 
   return (
     <>
-      <GoogleOAuthProvider clientId={web.client_id}>
-        <GoogleLogin
-          onSuccess={credentialResponse => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        />
-      </GoogleOAuthProvider>
-    </>
-  )
+      <input onChange={e => setTemp(e.target.value)} value={url} type="text" />
+      <button onClick={getUrl}>Get</button>
+      <iframe width="100%" height="100%" id="frame" src={url}></iframe>
+    </>)
 }
 
 export default App
